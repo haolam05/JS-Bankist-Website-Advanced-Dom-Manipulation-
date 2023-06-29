@@ -107,6 +107,27 @@ allSections.forEach(section => {
 //////////////////////////////////////
 
 //////////////////////////////////////
+// Lazy Image Loading'
+const unblurImg = function (entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  entry.target.setAttribute('src', entry.target.dataset.src);
+  entry.target.addEventListener('load', () =>
+    entry.target.classList.remove('lazy-img')
+  ); // everytime browser load an image, load event is triggered. only unblur at this time bc users might have slow network
+  observer.unobserve(entry.target);
+};
+const imagesObserver = new IntersectionObserver(unblurImg, {
+  root: null,
+  threshold: 0.2,
+});
+const allLazyImages = document.querySelectorAll('img[data-src]');
+allLazyImages.forEach(img => imagesObserver.observe(img));
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+
+//////////////////////////////////////
 // Smooth scrolling - navigation links
 // Solutoin #1
 // document.querySelectorAll('.nav__link').forEach(function (el) {
