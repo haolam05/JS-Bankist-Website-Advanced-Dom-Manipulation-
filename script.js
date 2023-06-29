@@ -167,7 +167,7 @@ const sliderFunc = function () {
     else currSlide--;
     goToSlide(currSlide);
   };
-  const nextSlide = () => {
+  const nextSlide = function () {
     if (currSlide === slides.length - 1) currSlide = 0;
     else currSlide++;
     goToSlide(currSlide);
