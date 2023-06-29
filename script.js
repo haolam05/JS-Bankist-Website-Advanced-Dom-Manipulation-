@@ -29,6 +29,24 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+document
+  .querySelector('.btn--scroll-to')
+  .addEventListener('click', function (e) {
+    const section1 = document.querySelector('#section--1');
+
+    // Solution #1 - modern browser
+    /* section1.scrollIntoView({ behavior: 'smooth' }); */
+
+    // Solution #2
+    const section1Coors = section1.getBoundingClientRect();
+    const [currXoffset, currYoffset] = [window.scrollX, window.scrollY];
+    window.scrollTo({
+      left: section1Coors.x + currXoffset,
+      top: section1Coors.y + currYoffset,
+      behavior: 'smooth',
+    });
+  });
+
 // Lectures
 /*
 console.log('=== Selecting Elements ===');
