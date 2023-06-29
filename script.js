@@ -75,6 +75,38 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 //////////////////////////////////////
 //////////////////////////////////////
 
+//////////////////////////////////////
+// Tab Components
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabs = document.querySelectorAll('.operations__tab');
+const tasbContent = document.querySelectorAll('.operations__content');
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  if (!clicked) return;
+
+  // Solution #1
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tasbContent.forEach(tC => tC.classList.remove('operations__content--active'));
+  clicked.classList.add('operations__tab--active');
+  document // remember that any attribute starts with data will be stored in dataset property
+    .querySelector(`.operations__content--${clicked.dataset.tab}`) // ex: data-tab-one => dataset.tabOne
+    .classList.add('operations__content--active');
+
+  /* Solution #2
+  const tabIdx = clicked.dataset.tab - 1;
+  tabs[tabIdx].classList.add('operations__tab--active');
+  tasbContent[tabIdx].classList.add('operations__content--active');
+  for (const [idx, _] of tabs.entries()) {
+    if (idx !== tabIdx) {
+      tabs[idx].classList.remove('operations__tab--active');
+      tasbContent[idx].classList.remove('operations__content--active');
+    }
+  }*/
+});
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+
 // Lectures
 /*
 console.log('=== Selecting Elements ===');
@@ -159,4 +191,24 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
   console.log('NAV', e.target, e.currentTarget);
 });
+
+// DOM traversal
+const h1 = document.querySelector('h1');
+// Going downwards: child
+console.log(h1.querySelectorAll('.highlight')); // all children
+console.log(h1.childNodes); // direct
+console.log(h1.children); // children
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'white';
+// Going upwards: parents
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+// Going sidways: siblings - can only access direct sibling
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+console.log(h1.parentElement.children); // trick to get all siblings
 */
