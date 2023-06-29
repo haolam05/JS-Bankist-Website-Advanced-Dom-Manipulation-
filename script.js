@@ -7,6 +7,13 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+const navLinks = document.querySelector('.nav__links');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabs = document.querySelectorAll('.operations__tab');
+const tasbContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -31,15 +38,11 @@ document.addEventListener('keydown', function (e) {
 
 // Smooth scrolling - section1
 //////////////////////////////////////
-document
-  .querySelector('.btn--scroll-to')
-  .addEventListener('click', function (e) {
-    const section1 = document.querySelector('#section--1');
+btnScrollTo.addEventListener('click', function (e) {
+  // Solution #1 - modern browser
+  section1.scrollIntoView({ behavior: 'smooth' });
 
-    // Solution #1 - modern browser
-    section1.scrollIntoView({ behavior: 'smooth' });
-
-    /* Solution #2
+  /* Solution #2
     const section1Coors = section1.getBoundingClientRect();
     const [currXoffset, currYoffset] = [window.scrollX, window.scrollY];
     window.scrollTo({
@@ -47,7 +50,7 @@ document
       top: section1Coors.y + currYoffset,
       behavior: 'smooth',
     });*/
-  });
+});
 //////////////////////////////////////
 //////////////////////////////////////
 //////////////////////////////////////
@@ -64,7 +67,7 @@ document
 // });
 
 // Solution #2
-document.querySelector('.nav__links').addEventListener('click', function (e) {
+navLinks.addEventListener('click', function (e) {
   e.preventDefault();
   if (e.target.classList.contains('nav__link')) {
     const target = document.querySelector(e.target.getAttribute('href'));
@@ -77,9 +80,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
 //////////////////////////////////////
 // Tab Components
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabs = document.querySelectorAll('.operations__tab');
-const tasbContent = document.querySelectorAll('.operations__content');
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
   if (!clicked) return;
@@ -103,6 +103,27 @@ tabsContainer.addEventListener('click', function (e) {
     }
   }*/
 });
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+
+//////////////////////////////////////
+// Fading NavLink(s) & Logo when hovering
+const setNavLinksOpacity = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const siblings = e.target.closest('.nav').querySelectorAll('.nav__link');
+    const logo = e.target.closest('.nav').querySelector('img');
+    siblings.forEach(el => el != e.target && (el.style.opacity = this.opacity));
+    logo.style.opacity = this.opacity;
+  }
+};
+// nav.addEventListener('mouseover', e => setNavLinksOpacity(e, 0.5));
+// nav.addEventListener('mouseout', e => setNavLinksOpacity(e, 1));
+nav.addEventListener('mouseover', setNavLinksOpacity.bind({ opacity: 0.5 })); // can't pass more than 1 argument
+nav.addEventListener('mouseout', setNavLinksOpacity.bind({ opacity: 1 }));
+// whenever the addEventListener is triggerd, it expects only 1 argument, it passes the EVENT object to the callback function
+// the callback accepts a single parameter: an object based on Event describing the event that has occurred, and it returns nothing
+// therefore, we use the bind method to pass arguments through the "this" keyword
 //////////////////////////////////////
 //////////////////////////////////////
 //////////////////////////////////////
