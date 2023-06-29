@@ -14,6 +14,7 @@ const tabsContainer = document.querySelector('.operations__tab-container');
 const tabs = document.querySelectorAll('.operations__tab');
 const tasbContent = document.querySelectorAll('.operations__content');
 const nav = document.querySelector('.nav');
+const header = document.querySelector('.header');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -51,6 +52,35 @@ btnScrollTo.addEventListener('click', function (e) {
       behavior: 'smooth',
     });*/
 });
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+
+//////////////////////////////////////
+// Sticky navbar
+/* Solution #1
+const initCoors = section1.getBoundingClientRect(); // distance from top left of html to section1
+console.log(initCoors.left, initCoors.top);
+window.addEventListener('scroll', () =>
+  window.scrollY > initCoors.top
+    ? nav.classList.add('sticky')
+    : nav.classList.remove('sticky')
+); */
+
+// Solution #2
+const stickyCallback = entries => {
+  const [entry] = entries;
+  !entry.isIntersecting
+    ? nav.classList.add('sticky')
+    : nav.classList.remove('sticky');
+};
+const stickyOptions = {
+  root: null,
+  threshold: 0, // when header is 0% visible => make navbar sticky
+  rootMargin: `-${nav.getBoundingClientRect().height}px`,
+};
+const headerObserver = new IntersectionObserver(stickyCallback, stickyOptions);
+headerObserver.observe(header);
 //////////////////////////////////////
 //////////////////////////////////////
 //////////////////////////////////////
