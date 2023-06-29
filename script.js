@@ -95,4 +95,19 @@ logo.getAttribute('designer');
 console.log(logo.src);
 console.log(logo.getAttribute('src'));
 console.log(logo.dataset.versionNumber);
+// const h1 = document.querySelector('h1');
+// const alertH1 = function (e) {
+//   alert('Reading H1');
+//   h1.removeEventListener('mouseenter', alertH1);
+// };
+// h1.addEventListener('mouseenter', alertH1);
+// h1.addEventListener('click', function (e) {
+//   alert('CLICKED!');
+// });
+// h1.onmouseenter = function (e) { // not recommended, can't remove event
+//   alert('Reading H1');
+// };
+// h1.click = function (e) {
+//   alert('CLICKED!');
+// }; // overidden
 */
