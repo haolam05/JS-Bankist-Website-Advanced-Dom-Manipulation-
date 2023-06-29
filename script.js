@@ -15,6 +15,7 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tasbContent = document.querySelectorAll('.operations__content');
 const nav = document.querySelector('.nav');
 const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('.section');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -81,6 +82,26 @@ const stickyOptions = {
 };
 const headerObserver = new IntersectionObserver(stickyCallback, stickyOptions);
 headerObserver.observe(header);
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+
+//////////////////////////////////////
+// Revealing Elements on Scroll
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+const sectionsObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.1,
+});
+allSections.forEach(section => {
+  sectionsObserver.observe(section);
+  section.classList.add('section--hidden');
+});
 //////////////////////////////////////
 //////////////////////////////////////
 //////////////////////////////////////
