@@ -22,6 +22,8 @@ const slides = document.querySelectorAll('.slide');
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
 
+header.scrollIntoView({ behavior: 'smooth' });
+
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -133,6 +135,7 @@ allLazyImages.forEach(img => imagesObserver.observe(img));
 
 //////////////////////////////////////
 // Slider
+/* Using Buttons */
 const prevSlide = function () {
   if (currSlide === 0) currSlide = slides.length - 1;
   else currSlide--;
@@ -152,6 +155,12 @@ btnLeft.addEventListener('click', prevSlide);
 btnRight.addEventListener('click', nextSlide);
 let currSlide = 0;
 goToSlide(currSlide);
+
+/* Using keyboard */
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') prevSlide();
+  else if (e.key === 'ArrowRight') nextSlide();
+});
 
 /*
 slider.style.overflow = 'visible';
